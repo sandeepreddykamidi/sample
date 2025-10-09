@@ -12,13 +12,13 @@ st.write("This Streamlit app displays AQI trends using Snowflake data.")
 def get_connection():
     try:
         conn = snowflake.connector.connect(
-            account=st.secrets["snowflake"]["ptcrjkr-ag14683"],
-            user=st.secrets["snowflake"]["Sandeepreddy"],
-            password=st.secrets["snowflake"]["Sandeepreddy@143"],
-            role=st.secrets["snowflake"]["sysadmin"],
-            warehouse=st.secrets["snowflake"]["streamlit_w"],
-            database=st.secrets["snowflake"]["devdb"],
-            schema=st.secrets["snowflake"]["publish_sc"]
+            account=st.secrets["snowflake"]["account"],
+            user=st.secrets["snowflake"]["user"],
+            password=st.secrets["snowflake"]["password"],
+            role=st.secrets["snowflake"]["role"],
+            warehouse=st.secrets["snowflake"]["warehouse"],
+            database=st.secrets["snowflake"]["database"],
+            schema=st.secrets["snowflake"]["schema"]
         )
         return conn
     except Exception as e:
@@ -72,6 +72,7 @@ if date_option:
         params=(state_option, city_option, date_option)
     )
 
+    # Rename columns for clarity
     trend_df.rename(columns={
         'PM25_AVG': 'PM2.5',
         'PM10_AVG': 'PM10',
